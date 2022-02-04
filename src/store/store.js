@@ -1,3 +1,7 @@
+// import { DataStore } from '@aws-amplify/datastore'
+import { createStore } from 'vuex'
+import { auth } from './auth/auth'
+import getters from './getters'
 // All Section data goes here
 let SectionData = {
   logoData: [
@@ -2970,17 +2974,6 @@ let SectionData = {
     sidebarWidgetThree: {
       date: 'Septermber 13, 2021'
     }
-  },
-  // author personal data
-  authorPersonalData: {
-    title: 'Kamran Ahmed',
-    userName: '@kamran_76',
-    btnText: 'Edit Profile',
-    img: require('@/images/thumb/avatar-9.jpg'),
-    coverImg: require('@/images/thumb/bread-bg-2.jpg'),
-    btnLink: 'account',
-    btnTextTwo: 'Profile',
-    btnLinkTwo: 'profile',
   },
   // author nav
   authorNav: [
@@ -6168,4 +6161,10 @@ let SectionData = {
   copyTitle: 'Copyright © 2021 EnftyMart. Template Made by <a href="https://themeforest.net/user/softnio/portfolio" target="_blank">Softnio</a>'
 }
 
-export default SectionData
+export default createStore({
+  state: SectionData,
+  getters,
+  modules: {
+    auth
+  }
+})

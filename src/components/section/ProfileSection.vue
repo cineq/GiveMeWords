@@ -4,19 +4,19 @@
                 <div class="row">
                     <div class="col-xl-3">
                         <AuthorSidebar
-                        :content="SectionData.authorSidebarDataTwo.sidebarWidget.content"
-                        :followingnum="SectionData.authorSidebarDataTwo.sidebarWidget.followingNum"
-                        :followingtext="SectionData.authorSidebarDataTwo.sidebarWidget.followingText"
-                        :followernum="SectionData.authorSidebarDataTwo.sidebarWidget.followerNum"
-                        :followertext="SectionData.authorSidebarDataTwo.sidebarWidget.followerText"
-                        :avatars="SectionData.authorSidebarDataTwo.sidebarWidget.followersAvatar"
-                        :links="SectionData.authorSidebarDataTwo.sidebarWidgetTwo.links"
-                        :datetext="SectionData.authorSidebarDataTwo.sidebarWidgetThree.date"
+                        :content="authorSidebarDataTwo.sidebarWidget.content"
+                        :followingnum="authorSidebarDataTwo.sidebarWidget.followingNum"
+                        :followingtext="authorSidebarDataTwo.sidebarWidget.followingText"
+                        :followernum="authorSidebarDataTwo.sidebarWidget.followerNum"
+                        :followertext="authorSidebarDataTwo.sidebarWidget.followerText"
+                        :avatars="authorSidebarDataTwo.sidebarWidget.followersAvatar"
+                        :links="authorSidebarDataTwo.sidebarWidgetTwo.links"
+                        :datetext="authorSidebarDataTwo.sidebarWidgetThree.date"
                         ></AuthorSidebar>
                     </div><!-- end col -->
                     <div class="col-xl-9 ps-xl-4">
                         <div class="author-items-wrap">
-                            <h3>{{ SectionData.profileData.title }}</h3>
+                            <h3>{{ profileData.title }}</h3>
                             <div class="gap-2x"></div><!-- end gap -->
                             <div class="row g-gs">
                                 <div class="col-md-4" v-for="item in itemsLoaded" :key="item.id">
@@ -77,13 +77,13 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-body text-center">
-                            <img :src="SectionData.deleteModal.img" alt="" class="mb-3">
-                            <h4 class="modal-tilte mb-2">{{ SectionData.deleteModal.title }}</h4>
-                            <p class="modal-text">{{ SectionData.deleteModal.content}}</p>
+                            <img :src="deleteModal.img" alt="" class="mb-3">
+                            <h4 class="modal-tilte mb-2">{{ deleteModal.title }}</h4>
+                            <p class="modal-text">{{ deleteModal.content}}</p>
                         </div><!-- end modal-body -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm" data-bs-dismiss="modal">{{ SectionData.deleteModal.btnText }}</button>
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">{{ SectionData.deleteModal.btnTextTwo }}</button>
+                            <button type="button" class="btn btn-sm" data-bs-dismiss="modal">{{ deleteModal.btnText }}</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">{{ deleteModal.btnTextTwo }}</button>
                         </div>
                     </div><!-- end modal-content -->
                 </div><!-- end modal-dialog -->
@@ -94,13 +94,14 @@
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'ProfileSection',
   data () {
     return {
-      SectionData,
+      // SectionData,
       items: [
       {
         id: 1,
@@ -197,6 +198,11 @@ export default {
     },
   },
   computed: {
+    ...mapState([
+      'deleteModal',
+      'profileData',
+      'authorSidebarDataTwo'
+    ]),
     itemsLoaded() {
       return this.items.slice(0, this.currentPage);
     },

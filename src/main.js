@@ -1,7 +1,7 @@
-import { createApp, Vue } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-// import store from './store'
+import store from './store/store'
 import Amplify from 'aws-amplify'
 import '@aws-amplify/ui-vue'
 import aws_exports from './aws-exports'
@@ -9,7 +9,7 @@ import aws_exports from './aws-exports'
 Amplify.configure(aws_exports)
 
 // vue app
-const app = createApp(App);
+const app = createApp(App).use(store)
 
 // bootstrap
 import "bootstrap"
@@ -102,6 +102,7 @@ import SellerSettingSection from './components/section/SellerSettingSection.vue'
 import NotificationSection from './components/section/NotificationSection.vue';
 import SecuritySection from './components/section/SecuritySection.vue';
 import ThemeSwitcher from './components/common/ThemeSwitcher.vue';
+import MobileAction from './components/common/MobileAction.vue';
 
 // Global page components register
 app.component('HeaderMain', HeaderMain);
@@ -173,6 +174,7 @@ app.component('SellerSettingSection', SellerSettingSection)
 app.component('NotificationSection', NotificationSection)
 app.component('SecuritySection', SecuritySection)
 app.component('ThemeSwitcher', ThemeSwitcher)
+app.component('MobileAction', MobileAction)
 
 // vue app
 app.use(router).mount('#app')

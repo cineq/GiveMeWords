@@ -1,17 +1,29 @@
 import { Auth } from "aws-amplify";
-import SectionData from "../store";
 
 export const auth = {
 
     namespaced: true,
-    state: { user: null },
+    
+    state: {   
+        authorPersonalData: {
+            title: null,
+            userName: null,
+            btnText: 'Edit Profile',
+            img: require('@/images/thumb/avatar-9.jpg'),
+            coverImg: require('@/images/thumb/bread-bg-2.jpg'),
+            btnLink: 'account',
+            btnTextTwo: 'Profile',
+            btnLinkTwo: 'profile',
+      } },
+
     mutations: {
         setUser(state, payload) {
-            state.user = payload;
-            SectionData.authorPersonalData = payload
+            state.authorPersonalData.title = payload.title
+            state.authorPersonalData.userName = payload.userName
+            state.authorPersonalData.img = payload.img
         }
-
     },
+
     actions: {
         async logout({ commit }) {
             commit("setUser", null);
@@ -25,9 +37,24 @@ export const auth = {
                 });
 
                 const userInfo = await Auth.currentUserInfo();
-                commit("setUser", userInfo);
+                
+                commit("setUser", { title: userInfo.username, userName: userInfo.attributes.email})
                 return Promise.resolve("Success");
 
+            } catch (error) {
+                console.log(error);
+                return Promise.reject(error);
+            }
+        },
+        async loginWithFb({commit}) {
+            try {
+                console.log("starting loging with FB")
+                await Auth.federatedSignIn( {provider: "Facebook"} )
+
+                const userInfo = await Auth.currentUserInfo();
+                commit("setUser", userInfo);
+                console.log("completed loging with FB")
+                return Promise.resolve("Success");
 
             } catch (error) {
                 console.log(error);
@@ -64,13 +91,17 @@ export const auth = {
         },
         async authAction({ commit }) {
             const userInfo = await Auth.currentUserInfo();
-            commit("setUser", userInfo);
+            console.log(userInfo)
+            var pictureString = String(userInfo.attributes.picture)
+            pictureString = pictureString.replace("\\", "")
+            var pictureObj = JSON.parse(pictureString)
+            console.log(pictureObj)
+            commit("setUser", { title: userInfo.username, userName: userInfo.attributes.email, img: pictureObj.data.url })
 
         }
-
     },
-    getters: {
-        user: (state) => state.user
-    }
 
+    getters: {
+        getUser: (state) => state.authorPersonalData
+    }
 }

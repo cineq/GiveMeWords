@@ -13,16 +13,16 @@
         <section class="section-space trending-section bg-gray">
             <div class="container">
                 <!-- section heading -->
-                <SectionHeading :text="SectionData.productData.title" :content="SectionData.productData.content" isMargin="mb-3"></SectionHeading>
+                <SectionHeading :text="getProductData.title" :content="getProductData.content" isMargin="mb-3"></SectionHeading>
                 <!-- product -->
                 <ProductsContainer></ProductsContainer>
                 <div class="text-center mt-4 mt-md-5">
-                    <ButtonLink :text="SectionData.productData.btnText" :link="SectionData.productData.btnLink" classname="btn-link btn-link-s1"></ButtonLink>
+                    <ButtonLink :text="getProductData.btnText" :link="getProductData.btnLink" classname="btn-link btn-link-s1"></ButtonLink>
                 </div>
             </div><!-- .container -->
         </section><!-- trending-section -->
         <!-- HowItWork  -->
-        <HowItWork classname="col-lg-3" :title="SectionData.howItWorkData.title" :subtitle="SectionData.howItWorkData.content" gutterBottom="mb-3"></HowItWork>
+        <HowItWork classname="col-lg-3" :title="getHowItWorkData.title" :subtitle="getHowItWorkData.content" gutterBottom="mb-3"></HowItWork>
         <!-- Category  -->
         <Category classname="section-space bg-gray"></Category>
         <!-- Newsletter  -->
@@ -34,7 +34,8 @@
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
+import { mapGetters } from 'vuex'
 import HeroTwo from '@/components/section/HeroTwo.vue'
 
 export default {
@@ -42,10 +43,16 @@ export default {
   components: {
     HeroTwo
   },
-  data () {
-    return {
-      SectionData
-    }
+  // data () {
+  //   return {
+  //     SectionData
+  //   }
+  // },
+  computed: {
+    ...mapGetters([
+      'getProductData',
+      'getHowItWorkData'
+    ])
   }
 }
 </script>

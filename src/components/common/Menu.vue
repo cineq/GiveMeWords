@@ -4,7 +4,7 @@
       <MenuList></MenuList>
       <!-- header btn -->
       <ul class="menu-btns">
-          <li><ButtonLink :text="SectionData.headerData.btnText" link="/wallet" classname="btn" :class="classname"></ButtonLink></li>
+          <li><ButtonLink :text="headerData.btnText" link="/wallet" classname="btn" :class="classname"></ButtonLink></li>
           <li>
              <ThemeSwitcher></ThemeSwitcher>
           </li>
@@ -14,7 +14,8 @@
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
+import { mapState } from 'vuex'
 
 // @ is an alias to /src
 import MenuList from '@/components/common/MenuList.vue'
@@ -25,10 +26,15 @@ export default {
   components: {
     MenuList
   },
-  data () {
-    return {
-      SectionData
-    }
+  computed: {
+    ...mapState([
+      'headerData'
+    ])
   }
+//   data () {
+//     return {
+//       SectionData
+//     }
+//   }
 }
 </script>

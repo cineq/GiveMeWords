@@ -5,15 +5,15 @@
     </div><!-- end section-head -->
 </template>
 <script>
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
 
 export default {
   name: 'SectionHeading',
   props: ['text', 'content', 'isMargin'],
-  data () {
-    return {
-      SectionData
-    }
-  }
+  // data () {
+  //   return {
+  //     SectionData
+  //   }
+  // }
 }
 </script>

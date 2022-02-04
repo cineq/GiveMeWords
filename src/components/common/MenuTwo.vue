@@ -9,21 +9,21 @@
                 <button type="button" class="icon-btn icon-btn-s1" data-bs-toggle="dropdown"><em class="ni ni-user"></em></button>
                 <ul class="dropdown-menu card-generic card-generic-s3 dropdown-menu-end mt-2">
                     <li><h6 class="dropdown-header">Hello kamran!</h6></li>
-                    <li v-for="list in SectionData.authorNav" :key="list.id"><router-link class="dropdown-item card-generic-item" :to="list.path"><em class="ni me-2" :class="list.icon"></em>{{ list.title }}</router-link></li>
+                    <li v-for="list in authorNav" :key="list.id"><router-link class="dropdown-item card-generic-item" :to="list.path"><em class="ni me-2" :class="list.icon"></em>{{ list.title }}</router-link></li>
                     <li><a href="#" class="dropdown-item card-generic-item theme-toggler" title="Toggle Dark/Light mode"><em class="ni ni-moon me-2"></em> Dark Mode</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><router-link class="dropdown-item card-generic-item" to="/"><em class="ni ni-power me-2"></em>Logout</router-link></li>
                 </ul>
             </li>
-          <li class="d-lg-none"><ButtonLink :text="SectionData.headerData.btnText" link="/wallet" classname="btn btn-lg" :class="classname"></ButtonLink></li>
+          <li class="d-lg-none"><ButtonLink :text="headerData.btnText" link="/wallet" classname="btn btn-lg" :class="classname"></ButtonLink></li>
       </ul>
   </nav><!-- .header-menu -->
 </template>
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
-
+// import SectionData from '@/store/store.js'
+import { mapState } from 'vuex'
 // @ is an alias to /src
 import MenuList from '@/components/common/MenuList.vue'
 
@@ -33,11 +33,17 @@ export default {
   components: {
     MenuList
   },
-  data () {
-    return {
-      SectionData
-    }
+  computed: {
+    ...mapState([
+      'headerData',
+      'authorNav'
+    ])
   },
+  // data () {
+  //   return {
+  //     SectionData
+  //   }
+  // },
   mounted () {
     /*  ==========================================
       Dark/Light mode configaration

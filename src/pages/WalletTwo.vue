@@ -5,7 +5,7 @@
         <!-- Header main -->
         <HeaderMain></HeaderMain>
         <!-- hero -->
-        <HeroFour classname="hero-title" :title="SectionData.breadcrumbData.breadcrumbListFour.title" :lists="SectionData.breadcrumbData.breadcrumbListFour.navList"></HeroFour>
+        <HeroFour classname="hero-title" :title="breadcrumbData.breadcrumbListFour.title" :lists="breadcrumbData.breadcrumbListFour.navList"></HeroFour>
     </header>
     <!-- wallet section -->
     <WalletSectionTwo></WalletSectionTwo>
@@ -15,7 +15,7 @@
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+import { mapState } from 'vuex'
 import HeroFour from '@/components/section/HeroFour.vue'
 
 export default {
@@ -23,10 +23,15 @@ export default {
   components: {
     HeroFour
   },
-  data () {
-    return {
-      SectionData
-    }
+  computed: {
+    ...mapState([
+      'breadcrumbData'
+    ])
   }
+  // data () {
+  //   return {
+  //     SectionData
+  //   }
+  // }
 }
 </script>

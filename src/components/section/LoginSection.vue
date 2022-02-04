@@ -3,12 +3,12 @@
         <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-6 mb-5 mb-lg-0 d-none d-lg-block">
-                        <img :src="SectionData.loginData.img" alt="" class="img-fluid">
+                        <img :src="getLoginData.img" alt="" class="img-fluid">
                     </div><!-- end col-lg-6 -->
                     <div class="col-lg-6">
                         <div class="section-head-sm">
-                            <h2 class="mb-1">{{ SectionData.loginData.title }}</h2>
-                            <p>{{ SectionData.loginData.subTitle }}</p>
+                            <h2 class="mb-1">{{ getLoginData.title }}</h2>
+                            <p>{{ getLoginData.subTitle }}</p>
                         </div>
                         <form action="#">
                             <div class="form-floating mb-4">
@@ -30,12 +30,12 @@
                                 </div>
                                 <router-link to="login" class="btn-link form-forget-password">Forgot Password</router-link>
                             </div>
-                            <button class="btn btn-primary w-100" type="submit">{{ SectionData.loginData.btnText }}</button>
+                            <button class="btn btn-primary w-100" type="submit">{{ getLoginData.btnText }}</button>
                             <span class="d-block my-4">— or login with —</span>
                             <ul class="btns-group d-flex">
-                                <li class="flex-grow-1" v-for="(list, i) in SectionData.loginData.btns" :key="i"><router-link :to="list.path" class="btn d-block" :class="list.btnClass"><em class="ni" :class="list.icon"></em> {{ list.title }} </router-link></li>
+                                <li class="flex-grow-1" v-for="(list, i) in getLoginData.btns" :key="i"><router-link :to="list.path" class="btn d-block" :class="list.btnClass" v-on:click="login()"><em class="ni" :class="list.icon"></em> {{ list.title }} </router-link></li>
                             </ul>
-                            <p class="mt-3 form-text">{{ SectionData.loginData.haveAccountText }} <router-link :to="SectionData.loginData.btnTextLink" class="btn-link">{{ SectionData.loginData.btnTextTwo }}</router-link></p>
+                            <p class="mt-3 form-text">{{ getLoginData.haveAccountText }} <router-link :to="getLoginData.btnTextLink" class="btn-link">{{ getLoginData.btnTextTwo }}</router-link></p>
                         </form>
                     </div><!-- end col-lg-6 -->
                 </div><!-- end row -->
@@ -44,13 +44,31 @@
 </template>
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
+import {mapActions, mapGetters} from "vuex"
 export default {
   name: 'LoginSection',
-  data () {
-    return {
-      SectionData
-    }
+//   data () {
+//     return {
+//       SectionData
+//     }
+//   },
+  methods: {
+      ...mapActions({
+          loginVue: "auth/loginWithFb"
+          }),
+      async login() {
+          try {
+            await this.loginVue()
+          } catch(error) {
+              this.error = error
+          }
+      }
+  },
+  computed: {
+      ...mapGetters({
+        getLoginData: "getLoginData"
+        })
   },
   mounted () {
     /*  ======== Show/Hide passoword ======== */

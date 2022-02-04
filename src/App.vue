@@ -4,6 +4,20 @@
   <router-view/>
 </template>
 
+<script>
+import { mapActions } from 'vuex'
+export default {
+  name: 'App',
+  methods: {
+    ...mapActions("auth", ["authAction"]),
+  },
+  mounted(){
+    this.authAction()
+  }
+}
+</script>
+
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

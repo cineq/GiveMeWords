@@ -4,7 +4,7 @@
                 <!-- section heading -->
                 <SectionHeading :text="title" :content="subtitle" :isMargin="gutterBottom"></SectionHeading>
                 <div class="row g-gs justify-content-center">
-                    <div class="col-10 col-sm-6 col-md-6" v-for="item in SectionData.howItWorkData.howItWorkList" :key="item.id" :class="classname">
+                    <div class="col-10 col-sm-6 col-md-6" v-for="item in howItWorkData.howItWorkList" :key="item.id" :class="classname">
                         <div class="card-htw text-center" :class="classnameTwo">
                             <span :class="item.icon"></span>
                             <h4 class="mb-3">{{ item.title }}</h4>
@@ -18,15 +18,21 @@
 
 <script>
 // Import component data. You can change the data in the store to reflect in all component
-import SectionData from '@/store/store.js'
+// import SectionData from '@/store/store.js'
+import { mapState} from 'vuex'
 
 export default {
   name: 'HowItWork',
   props: ['classname', 'title', 'classnameTwo', 'subtitle', 'gutterBottom'],
-  data () {
-    return {
-      SectionData
-    }
+  computed: {
+    ...mapState([
+      'howItWorkData'
+    ])
   }
+  // data () {
+  //   return {
+  //     SectionData
+  //   }
+  // }
 }
 </script>
